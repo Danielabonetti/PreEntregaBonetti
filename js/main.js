@@ -1,61 +1,81 @@
-//Empresa de Taxis
-
-function sumar(nombre, apellido) {
-  return nombre + apellido
+//TAXI CORDOBA 
+// Objeto Usuario
+function Usuario(nombre, apellido, direccion) {
+  this.nombre = nombre;
+  this.apellido = apellido;
+  this.direccion = direccion;
 }
 
-let nombreIngresado = prompt("Bienvenido a Taxi Cordoba por favor ingrese su nombre");
+// Objeto Viaje
+function Viaje(costodelviaje) {
+  this.costo = costodelviaje;
+
+  this.pagar = function(precioIngresado) {
+    if (precioIngresado === this.costo) {
+      alert("Su viaje se abonó correctamente, su auto llegará en 10 minutos.");
+      console.log("el usuario abona correctamente");
+    } else if (precioIngresado > this.costo) {
+      let vuelto = precioIngresado - this.costo;
+      alert("Su vuelto es de $" + vuelto + ". Su auto llegará en 10 min!");
+      console.log("El usuario pagó de más, se le indica el vuelto");
+    } else {
+      alert("El precio ingresado es incorrecto. Por favor, inténtelo de nuevo.");
+      console.log("Precio ingresado incorrecto");
+    }
+  }
+}
+
+const usuarios = []; 
+
+// Función para agregar un usuario al array
+function agregarUsuario(nombre, apellido, direccion) {
+  const nuevoUsuario = new Usuario(nombre, apellido, direccion);
+  usuarios.push(nuevoUsuario);
+}
+
+const nombreIngresado = prompt("Bienvenido a Taxi Cordoba por favor ingrese su nombre");
 alert("El nombre ingresado es " + nombreIngresado);
 
-let apellidoIngresado = prompt("Por favor ingrese su apellido");
+const apellidoIngresado = prompt("Por favor ingrese su apellido");
 alert("El apellido ingresado es " + apellidoIngresado);
 
-let NombreCompleto = sumar(nombreIngresado, apellidoIngresado);
-alert("Ingreso el siguiente nombre " + NombreCompleto);
+const direccionIngresada = prompt("Por favor ingrese su dirección");
+alert("Ingreso la siguiente direccion: " + direccionIngresada);
 
-function Direccion(Direccion) {
- }
+agregarUsuario(nombreIngresado, apellidoIngresado, direccionIngresada);
 
-  let direccion = prompt("Por favor ingrese su dirección");
- alert("Ingreso la siguiente direccion")
- console.log("Ingreso direccion");
+const viaje = new Viaje(2500);
 
-function Costo (Costodelviaje) {
-}
-
-let precioCorrecto = 2500;
 let precioIngresado;
 
 while (true) {
   precioIngresado = parseInt(prompt("Su viaje tiene un valor de $2500, por favor ingrese su pago"));
 
   if (!isNaN(precioIngresado)) {
-    if (precioIngresado === precioCorrecto) {
+    if (precioIngresado === 2500) { 
       alert("Su viaje se abonó correctamente, su auto llegará en 10 minutos.");
-      console.log("el usuario abona correctamente");
       break;
-    } else if (precioIngresado > precioCorrecto) {
-      let vuelto = precioIngresado - precioCorrecto;
-      alert("Su vuelto es de $"  + vuelto +  "su auto llegará en 10 min!");
-      console.log("El usuario pago de mas, le indica el vuelto");
+    } else if (precioIngresado > 2500) { 
+      let vuelto = precioIngresado - 2500; 
+      alert("Su vuelto es de $" + vuelto + ".");
       break;
     } else {
       alert("El precio ingresado es incorrecto. Por favor, inténtelo de nuevo.");
-      console.log("Precio ingresado incorrecto");
     }
   } else {
     alert("Por favor, ingrese un valor numérico.");
-    console.log("Ingresa un caracter que no es un numero");
   }
 }
 
+// Busqueda y filtrado 
+const apellidoBuscado = prompt("Ingrese el apellido a buscar").trim();
 
-
-
-
-
-
-
+if (apellidoBuscado !== '') {
+  const usuariosConApellidoBuscado = usuarios.filter(usuario => usuario.apellido === apellidoBuscado);
+  console.log("Usuarios con el apellido buscado:", usuariosConApellidoBuscado);
+} else {
+  console.log("El apellido ingresado es inválido.");
+}
 
 
 
