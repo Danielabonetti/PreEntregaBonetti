@@ -27,7 +27,7 @@ function Viaje(costodelviaje) {
 
 const usuarios = []; 
 
-// Función para agregar un usuario al array
+// Función
 function agregarUsuario(nombre, apellido, direccion) {
   const nuevoUsuario = new Usuario(nombre, apellido, direccion);
   usuarios.push(nuevoUsuario);
@@ -67,7 +67,7 @@ while (true) {
   }
 }
 
-// Busqueda y filtrado 
+
 const apellidoBuscado = prompt("Ingrese el apellido a buscar").trim();
 
 if (apellidoBuscado !== '') {
