@@ -1,4 +1,3 @@
-//TAXI CORDOBA 
 // Objeto Usuario
 function Usuario(nombre, apellido, direccion) {
   this.nombre = nombre;
@@ -12,72 +11,72 @@ function Viaje(costodelviaje) {
 
   this.pagar = function(precioIngresado) {
     if (precioIngresado === this.costo) {
-      alert("Su viaje se abonó correctamente, su auto llegará en 10 minutos.");
-      console.log("el usuario abona correctamente");
+      mostrarMensaje("Su viaje se abonó correctamente, su auto llegará en 10 minutos.");
     } else if (precioIngresado > this.costo) {
       let vuelto = precioIngresado - this.costo;
-      alert("Su vuelto es de $" + vuelto + ". Su auto llegará en 10 min!");
-      console.log("El usuario pagó de más, se le indica el vuelto");
+      mostrarMensaje("Su vuelto es de $" + vuelto + ". Su auto llegará en 10 min!");
     } else {
-      alert("El precio ingresado es incorrecto. Por favor, inténtelo de nuevo.");
-      console.log("Precio ingresado incorrecto");
+      mostrarMensaje("El precio ingresado es incorrecto. Por favor, inténtelo de nuevo.");
     }
   }
 }
 
-const usuarios = []; 
 
-// Función
+
+function cargarUsuariosDesdeStorage() {
+  const usuariosGuardados = JSON.parse(localStorage.getItem("usuarios"));
+  if (usuariosGuardados) {
+    usuarios = usuariosGuardados;
+  }
+}
+
+function guardarUsuariosEnStorage() {
+  localStorage.setItem("usuarios", JSON.stringify(usuarios));
+}
+
 function agregarUsuario(nombre, apellido, direccion) {
   const nuevoUsuario = new Usuario(nombre, apellido, direccion);
   usuarios.push(nuevoUsuario);
+  guardarUsuariosEnStorage();
 }
 
-const nombreIngresado = prompt("Bienvenido a Taxi Cordoba por favor ingrese su nombre");
-alert("El nombre ingresado es " + nombreIngresado);
-
-const apellidoIngresado = prompt("Por favor ingrese su apellido");
-alert("El apellido ingresado es " + apellidoIngresado);
-
-const direccionIngresada = prompt("Por favor ingrese su dirección");
-alert("Ingreso la siguiente direccion: " + direccionIngresada);
-
-agregarUsuario(nombreIngresado, apellidoIngresado, direccionIngresada);
-
-const viaje = new Viaje(2500);
-
-let precioIngresado;
-
-while (true) {
-  precioIngresado = parseInt(prompt("Su viaje tiene un valor de $2500, por favor ingrese su pago"));
-
-  if (!isNaN(precioIngresado)) {
-    if (precioIngresado === 2500) { 
-      alert("Su viaje se abonó correctamente, su auto llegará en 10 minutos.");
-      break;
-    } else if (precioIngresado > 2500) { 
-      let vuelto = precioIngresado - 2500; 
-      alert("Su vuelto es de $" + vuelto + ".");
-      break;
-    } else {
-      alert("El precio ingresado es incorrecto. Por favor, inténtelo de nuevo.");
-    }
-  } else {
-    alert("Por favor, ingrese un valor numérico.");
-  }
+function mostrarMensaje(mensaje) {
+  const mensajeDiv = document.getElementById('mensaje');
+  mensajeDiv.textContent = mensaje;
+  console.log(mensaje); 
 }
 
-
-const apellidoBuscado = prompt("Ingrese el apellido a buscar").trim();
-
-if (apellidoBuscado !== '') {
-  const usuariosConApellidoBuscado = usuarios.filter(usuario => usuario.apellido === apellidoBuscado);
-  console.log("Usuarios con el apellido buscado:", usuariosConApellidoBuscado);
-} else {
-  console.log("El apellido ingresado es inválido.");
+function mostrarUsuariosEnDOM() {
+  const usuariosContainer = document.getElementById("usuarios-container");
+  usuariosContainer.innerHTML = ""; 
+  usuarios.forEach((usuario, index) => {
+    const usuarioDiv = document.createElement("div");
+    usuarioDiv.classList.add("usuario-card"); 
+    usuarioDiv.innerHTML = `
+      <strong>Nombre:</strong> ${usuario.nombre} ${usuario.apellido}, <strong>Dirección:</strong> ${usuario.direccion}
+      <button onclick="eliminarUsuario(${index})">Eliminar</button>
+    `;
+    usuariosContainer.appendChild(usuarioDiv);
+  });
 }
 
+function eliminarUsuario(index) {
+  usuarios.splice(index, 1);
+  guardarUsuariosEnStorage();
+  mostrarUsuariosEnDOM();
+  mostrarMensaje("Usuario eliminado correctamente");
+}
 
+const agregarBtn = document.getElementById("agregar");
+agregarBtn.addEventListener("click", () => {
+  const nombreIngresado = document.getElementById("nombre-input").value;
+  const apellidoIngresado = document.getElementById("apellido-input").value;
+  const direccionIngresada = document.getElementById("direccion-input").value;
+  agregarUsuario(nombreIngresado, apellidoIngresado, direccionIngresada);
+  mostrarUsuariosEnDOM();
+});
 
-
-
+window.addEventListener("load", () => {
+  cargarUsuariosDesdeStorage();
+  mostrarUsuariosEnDOM();
+});
