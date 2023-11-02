@@ -1,27 +1,11 @@
 // Objeto Usuario
+let usuarios = []; //profe este seria el array para almacenar usuarios
+
 function Usuario(nombre, apellido, direccion) {
   this.nombre = nombre;
   this.apellido = apellido;
   this.direccion = direccion;
 }
-
-// Objeto Viaje
-function Viaje(costodelviaje) {
-  this.costo = costodelviaje;
-
-  this.pagar = function(precioIngresado) {
-    if (precioIngresado === this.costo) {
-      mostrarMensaje("Su viaje se abonó correctamente, su auto llegará en 10 minutos.");
-    } else if (precioIngresado > this.costo) {
-      let vuelto = precioIngresado - this.costo;
-      mostrarMensaje("Su vuelto es de $" + vuelto + ". Su auto llegará en 10 min!");
-    } else {
-      mostrarMensaje("El precio ingresado es incorrecto. Por favor, inténtelo de nuevo.");
-    }
-  }
-}
-
-
 
 function cargarUsuariosDesdeStorage() {
   const usuariosGuardados = JSON.parse(localStorage.getItem("usuarios"));
