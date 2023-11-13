@@ -1,23 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaxiCordoba</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taxi Cordoba</title>
+  <link rel="stylesheet" href="styles.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
 </head>
+
 <body>
 
-    <div id="mensaje"></div>
-    <div id="usuarios-container"></div>
-    <label for="nombre-input">Nombre:</label>
-    <input id="nombre-input" type="text"><br>
-    <label for="apellido-input">Apellido:</label>
-    <input id="apellido-input" type="text"><br>
-    <label for="direccion-input">Dirección:</label>
-    <input id="direccion-input" type="text"><br>
-    <button id="agregar">Agregar Usuario</button>
+  <div id="mensaje">BIENVENIDO A TAXI CÓRDOBA</div>
+  
 
-    <script src="js/main.js"></script>
+ 
+  <label for="buscar-input">Buscar:</label>
+  <input id="buscar-input" type="text" placeholder="Nombre, Apellido o Dirección">
+
+  
+  <div id="usuarios-container"></div>
+
+  
+  <form id="usuario-form">
+    <label for="nombre-input">Nombre:</label>
+    <input id="nombre-input" type="text" required><br>
+    <label for="apellido-input">Apellido:</label>
+    <input id="apellido-input" type="text" required><br>
+    <label for="direccion-input">Dirección:</label>
+    <input id="direccion-input" type="text" required><br>
+    <button type="button" onclick="agregarUsuario()">Agregar Usuario</button>
+  </form>
+
+ 
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+  <script src="js/main.js"></script>
 </body>
+
 </html>

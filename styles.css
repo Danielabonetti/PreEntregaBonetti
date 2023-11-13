@@ -1,94 +1,133 @@
-
 body {
+  background-size: cover;
+  background-color: rgb(27, 61, 44);
+  background-position: center;
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 20px;
-  background-color: #9c9999;
+  padding: 0;
 }
 
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: #181817;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+#usuarios-container,
+#mensaje {
+  background-color: #f0f0f0; 
+  border: 2px solid #888; 
+  border-radius: 15px; 
+  padding: 30px;
+  margin: 20px auto;
+  max-width: 800px; 
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
 }
 
 
-label,
-input,
-button,
-.usuario-card {
-  display: block;
-  margin-bottom: 10px;
-}
-
-/* Botones */
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #e1f720;
-}
-
-/* Contenedor de Usuarios */
 #usuarios-container {
-  margin-top: 20px;
+  margin-bottom: 30px; 
 }
 
-/*  Usuario */
-.usuario-card {
-  border: 1px solid #ccc;
+#mensaje {
+  font-size: 1.2em; 
+  color: #333;
+}
+
+
+#buscar-input {
+  width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
-  background-color: #f9f9f9;
+  margin-bottom: 20px;
+  border: 1px solid #bbb4b4;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
-/*  Eliminar  */
-.usuario-card button {
-  background-color: #e74c3c;
-  color: white;
+#usuario-form {
+  max-width: 400px;
+  margin: 20px auto;
+  background-color: #e9e7e7;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+#usuario-form button {
+  background-color: #4CAF50;
+  color: #ffffff;
+  padding: 10px;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
   cursor: pointer;
-  float: right;
-  font-size: 14px;
+}
+
+
+.usuario-card {
+  background-color: #ffffff; 
+  border-radius: 10px; 
+  padding: 15px;
+  margin-bottom: 15px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+
+.usuario-card strong {
+  color: rgb(27, 61, 44); 
+}
+
+
+.usuario-card button {
+  background-color: #dc3545; 
+  color: #fff; 
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px; 
 }
 
 .usuario-card button:hover {
-  background-color: #c0392b;
+  background-color: #c82333; 
 }
-
-/* Msj de error */
-#mensaje {
-  font-weight: bold;
-  color: #e74c3c;
-  margin-bottom: 10px;
-}
-
-/* Texto */
-input[type="text"] {
-  width: calc(100% - 22px);
-  padding: 8px;
-  border: 1px solid #ccc;
+.eliminar-btn {
+  background-color: #ff6347;
+  color: #ffffff;
+  padding: 5px 10px;
+  border: none;
   border-radius: 3px;
-  font-size: 16px;
+  cursor: pointer;
 }
 
-input[type="text"]:focus {
-  outline: none;
-  border-color: #4CAF50;
+form {
+  max-width: 400px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
 
-button:focus {
-  outline: none;
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
 }

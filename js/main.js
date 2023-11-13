@@ -1,5 +1,5 @@
 // Objeto Usuario
-let usuarios = []; //profe este seria el array para almacenar usuarios
+let usuarios = [];
 
 function Usuario(nombre, apellido, direccion) {
   this.nombre = nombre;
@@ -18,30 +18,46 @@ function guardarUsuariosEnStorage() {
   localStorage.setItem("usuarios", JSON.stringify(usuarios));
 }
 
-function agregarUsuario(nombre, apellido, direccion) {
-  const nuevoUsuario = new Usuario(nombre, apellido, direccion);
-  usuarios.push(nuevoUsuario);
-  guardarUsuariosEnStorage();
-}
-
-function mostrarMensaje(mensaje) {
-  const mensajeDiv = document.getElementById('mensaje');
-  mensajeDiv.textContent = mensaje;
-  console.log(mensaje); 
-}
-
-function mostrarUsuariosEnDOM() {
-  const usuariosContainer = document.getElementById("usuarios-container");
-  usuariosContainer.innerHTML = ""; 
-  usuarios.forEach((usuario, index) => {
-    const usuarioDiv = document.createElement("div");
-    usuarioDiv.classList.add("usuario-card"); 
-    usuarioDiv.innerHTML = `
-      <strong>Nombre:</strong> ${usuario.nombre} ${usuario.apellido}, <strong>Dirección:</strong> ${usuario.direccion}
-      <button onclick="eliminarUsuario(${index})">Eliminar</button>
-    `;
-    usuariosContainer.appendChild(usuarioDiv);
+function mostrarMensaje(mensaje, icono = 'success') {
+  Swal.fire({
+    text: mensaje,
+    icon: icono,
+    timer: 2000,
+    showConfirmButton: false
   });
+  console.log(mensaje);
+}
+
+function mostrarUsuariosEnDOM(usuariosMostrar = usuarios) {
+  const usuariosContainer = $("#usuarios-container");
+  usuariosContainer.html("");
+  usuariosMostrar.forEach((usuario, index) => {
+    const usuarioDiv = $("<div>").addClass("usuario-card");
+    usuarioDiv.html(`
+      <strong>Nombre:</strong> ${usuario.nombre} ${usuario.apellido}, <strong>Dirección:</strong> ${usuario.direccion}
+      <button class="eliminar-btn">Eliminar</button>
+    `);
+    usuarioDiv.find(".eliminar-btn").on("click", () => {
+      eliminarUsuario(index);
+    });
+    usuariosContainer.append(usuarioDiv);
+  });
+}
+
+function agregarUsuario() {
+  const nombreIngresado = $("#nombre-input").val();
+  const apellidoIngresado = $("#apellido-input").val();
+  const direccionIngresada = $("#direccion-input").val();
+
+  if (nombreIngresado && apellidoIngresado && direccionIngresada) {
+    const nuevoUsuario = new Usuario(nombreIngresado, apellidoIngresado, direccionIngresada);
+    usuarios.push(nuevoUsuario);
+    guardarUsuariosEnStorage();
+    mostrarUsuariosEnDOM();
+    mostrarMensaje("Usuario agregado correctamente");
+  } else {
+    mostrarMensaje("Por favor, completa todos los campos", 'error');
+  }
 }
 
 function eliminarUsuario(index) {
@@ -51,16 +67,20 @@ function eliminarUsuario(index) {
   mostrarMensaje("Usuario eliminado correctamente");
 }
 
-const agregarBtn = document.getElementById("agregar");
-agregarBtn.addEventListener("click", () => {
-  const nombreIngresado = document.getElementById("nombre-input").value;
-  const apellidoIngresado = document.getElementById("apellido-input").value;
-  const direccionIngresada = document.getElementById("direccion-input").value;
-  agregarUsuario(nombreIngresado, apellidoIngresado, direccionIngresada);
-  mostrarUsuariosEnDOM();
+
+$("#buscar-input").on("input", function () {
+  const textoBusqueda = $(this).val().toLowerCase();
+  const usuariosFiltrados = usuarios.filter(usuario =>
+    usuario.nombre.toLowerCase().includes(textoBusqueda) ||
+    usuario.apellido.toLowerCase().includes(textoBusqueda) ||
+    usuario.direccion.toLowerCase().includes(textoBusqueda)
+  );
+  mostrarUsuariosEnDOM(usuariosFiltrados);
 });
 
-window.addEventListener("load", () => {
+
+$(document).ready(() => {
   cargarUsuariosDesdeStorage();
   mostrarUsuariosEnDOM();
 });
+
